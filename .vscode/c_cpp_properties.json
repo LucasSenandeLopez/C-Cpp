@@ -11,7 +11,8 @@
             "intelliSenseMode": "${default}",
             "compilerArgs": [
                 ""
-            ]
+            ],
+            "compilerPath": "/usr/bin/gcc"
         }
     ],
     "version": 4
