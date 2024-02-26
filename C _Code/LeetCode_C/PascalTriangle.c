@@ -7,9 +7,9 @@ int main(){
     // Select the number of rows (which is also max nº of columns) by changing the varianble n_rows
     unsigned long n_rows = 5;
 
-    int** triag_pointer = (int** ) malloc(n_rows * sizeof(int));
+    int** triag_pointer = (int** ) malloc(n_rows * sizeof(int*));
 
-    // Fill the first and last member of the row with 1; O(n)
+    // Fill the first and last member of the row with 1; 
     for(unsigned long i = 0; i < n_rows; i++){
 
         triag_pointer[i] = (int* ) malloc((i + 1) * sizeof(int));
@@ -35,7 +35,15 @@ int main(){
 
     }
 
+    
+
+
     // Frees the memory holding triangle 
+    for(unsigned long row = 0; row < n_rows; row++){
+
+        free(triag_pointer[row]);
+    }
+    
     free(triag_pointer);
 
     return 0;
