@@ -7,7 +7,7 @@
                 "${workspaceFolder}/**"
             ],
             "cStandard": "${default}",
-            "cppStandard": "${default}",
+            "cppStandard": "c++17",
             "intelliSenseMode": "${default}",
             "compilerArgs": [
                 ""
