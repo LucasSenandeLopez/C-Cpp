@@ -57,7 +57,9 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
-    "Project1.C": "cpp"
+    "Project1.C": "cpp",
+    "iostream": "cpp",
+    "ostream": "cpp"
   },
   "C_Cpp.default.compilerPath": "/usr/bin/gcc"
 }
