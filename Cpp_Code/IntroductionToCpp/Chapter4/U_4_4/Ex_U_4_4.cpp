@@ -1,7 +1,6 @@
 /*
 
-    We have to display how many of three students succeded given a minimum grade to pass
-    with the condition that the passing grade cannot be higher than 10
+    We have to display the average of passing grades assuming that at least one does pass
 
 */
 
@@ -15,6 +14,7 @@ int main()
     float grade_one;
     float grade_two;
     float grade_three;
+    float avg_passing_grade;
     int passing_students;
 
     cout << "Type in the minimum grade to pass and then the grades of three students: \n";
@@ -33,7 +33,18 @@ int main()
 
     passing_students = (grade_one >= min_grade) + (grade_two >= min_grade) + (grade_three >= min_grade);
 
-    cout << "A total of " << passing_students << "/3 students passed \n";
+    /*
+    This statement ensures at least one passes and if no one does,
+    the first one does with the min. grade
+    */
+    grade_one = (passing_students > 0) * grade_one + (passing_students == 0) * min_grade;
+    passing_students += (!passing_students);
+
+    avg_passing_grade = ((grade_one >= min_grade) * grade_one + \
+        (grade_two >= min_grade) * grade_two + (grade_three >= min_grade) * grade_three) / \
+        (float)passing_students;
+
+    cout << "The average passing grade is: " << avg_passing_grade << " \n";
 
     return 0;
 
