@@ -1,6 +1,6 @@
 /*
     We have to swap the values of two variables using the 
-    x = (x ^ y) ^ x and y = (y ^ x) ^ y equations
+    x = (x ^ y) ^ y and y = (y ^ x) ^ x equations
     while using only two variables
 */
 
@@ -17,9 +17,10 @@ int main()
     cout << "Introduce two integer variables: \n";
     cin >> first >> second;
 
-    //temp = (first ^ second);
-    first = second ^= (first ^ second);
-    //second ^= temp;
+    
+    first = first ^ second;
+    second = first ^ second;
+    first = first ^ second;
 
     cout << "The first number is now " << first << \
     " and the second now is " << second << " \n";
