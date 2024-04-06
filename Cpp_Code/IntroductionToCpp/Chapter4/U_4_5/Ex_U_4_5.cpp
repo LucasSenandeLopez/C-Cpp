@@ -1,6 +1,6 @@
 /*
     We have to swap the values of two variables using the 
-    x = (x ^ y) ^ y and y = (y ^ x) ^ x equations
+    x <- (x ^ y) ^ y and y <- (y ^ x) ^ x equations
     while using only two variables
 */
 
