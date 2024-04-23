@@ -44,5 +44,6 @@ int main()
         cout << *(str + i);
     }
 
+    cout << "\n";
     return 0;
 }
