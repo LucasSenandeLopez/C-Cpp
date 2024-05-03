@@ -38,7 +38,6 @@ int main()
 
 void insert_node(BST_Node *root, int new_key)
 {
-    //cout << "test: " << root -> key << "\n";
 
     if (!(root -> key))
     {

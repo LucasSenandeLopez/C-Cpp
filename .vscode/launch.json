@@ -11,7 +11,7 @@
       "cwd": "/home/fedesuarez/Documents/C-Cpp/Cpp_Code/IntroductionToCpp/Chapter11/U_11_29",
       "program": "/home/fedesuarez/Documents/C-Cpp/Cpp_Code/IntroductionToCpp/Chapter11/U_11_29/build/Debug/outDebug",
       "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
