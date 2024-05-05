@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/fedesuarez/Documents/C-Cpp/Cpp_Code/IntroductionToCpp/Chapter14/U_14_17",
-      "program": "/home/fedesuarez/Documents/C-Cpp/Cpp_Code/IntroductionToCpp/Chapter14/U_14_17/build/Debug/outDebug",
+      "cwd": "/home/fedesuarez/Documents/C-Cpp/Cpp_Code/IntroductionToCpp/Chapter13/U_13_3",
+      "program": "/home/fedesuarez/Documents/C-Cpp/Cpp_Code/IntroductionToCpp/Chapter13/U_13_3/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
