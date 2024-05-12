@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/fedesuarez/Documents/C-Cpp/Cpp_Code/RandomStuff/Matrix",
-      "program": "/home/fedesuarez/Documents/C-Cpp/Cpp_Code/RandomStuff/Matrix/build/Debug/outDebug",
+      "cwd": "/home/fedesuarez/Documents/C-Cpp/Cpp_Code/RandomStuff/Matrix_test",
+      "program": "/home/fedesuarez/Documents/C-Cpp/Cpp_Code/RandomStuff/Matrix_test/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

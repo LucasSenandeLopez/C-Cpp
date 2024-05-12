@@ -1,9 +1,9 @@
+#ifndef ODR_check
+#define ODR_check
+
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 
 using std::cout;
-using std::cin;
 
 template <typename T, long unsigned int ROWS,long unsigned int COLS> void swap_rows(T (&matrix)[ROWS][COLS],\
 long unsigned int former_row, long unsigned int new_row);
@@ -12,32 +12,8 @@ template <typename T, long unsigned int ROWS,long unsigned int COLS> void print_
 template <typename T, long unsigned int COLS> T determinant(T (&matrix)[COLS][COLS]);
 
 template <typename T> int is_near_zero(T num){return (num <= (T)0.0001 && num >= (T)-0.0001);}
-int main()
-{
-    float matrix[5][5] = {0.0f};
-    float result = float(0);
-    long unsigned int rows = sizeof(matrix)/(sizeof(matrix[0]));
-    long unsigned int cols = sizeof(matrix)/(rows*sizeof(matrix[0][0]));
-   
-   
-    srand((unsigned int)time(NULL));
-
-    for (long unsigned int row = 0; row < rows; ++row)
-    {
-        for (long unsigned int col = 0; col < cols; ++col)
-        {
-            matrix[row][col] = float(rand() % 9);
-        }
-    }
-    
-
-    result = determinant(matrix);
-    cout << "Rows: " << rows << " Cols: " << cols << "\n";
-    cout << "The determinant is " << result << "\n";
 
 
-    return 0;
-}
 
 template <typename T, long unsigned int ROWS,long unsigned int COLS> void swap_rows(T (&matrix)[ROWS][COLS],\
 long unsigned int former_row, long unsigned int new_row)
@@ -128,4 +104,4 @@ template <typename T, const long unsigned int COLS> T determinant(T (&matrix)[CO
 }
 
 
-
+#endif
