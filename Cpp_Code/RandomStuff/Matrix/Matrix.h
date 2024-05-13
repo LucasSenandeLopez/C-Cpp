@@ -13,6 +13,9 @@ template <typename T, long unsigned int COLS> T determinant(T (&matrix)[COLS][CO
 
 template <typename T> int is_near_zero(T num){return (num <= (T)0.0001 && num >= (T)-0.0001);}
 
+template <typename T, long unsigned int ROWS_A, long unsigned int ROWS_B,\
+ long unsigned int COLS_A, long unsigned int COLS_B>\
+  void matmul(T (&mat_A)[ROWS_A][COLS_A], T(&mat_B)[ROWS_B][COLS_B], T(&res_mat)[ROWS_A][COLS_B]);
 
 
 template <typename T, long unsigned int ROWS,long unsigned int COLS> void swap_rows(T (&matrix)[ROWS][COLS],\
@@ -33,6 +36,7 @@ long unsigned int former_row, long unsigned int new_row)
 
 template <typename T, long unsigned int ROWS,long unsigned int COLS> void print_matrix(T (&matrix)[ROWS][COLS])
 {
+
     std::cout << "{\n";
     for (long unsigned int row = 0; row < ROWS; ++row)
     {
@@ -102,6 +106,37 @@ template <typename T, const long unsigned int COLS> T determinant(T (&matrix)[CO
 
     return result * (T)sign;
 }
+
+template <typename T, long unsigned int ROWS_A, long unsigned int ROWS_B,\
+ long unsigned int COLS_A, long unsigned int COLS_B>\
+ void matmul(T (&mat_A)[ROWS_A][COLS_A], T(&mat_B)[ROWS_B][COLS_B], T(&res_mat)[ROWS_A][COLS_B])
+{
+
+    T num = 0;
+    long unsigned int row_A;
+    long unsigned int col_B;
+
+    for (row_A = 0; row_A < ROWS_A; ++row_A)
+    {
+        for (col_B = 0; col_B < COLS_B; ++col_B)
+        {
+            for(long unsigned int i = 0; i < ROWS_B; ++i)
+            {
+                num += mat_A[row_A][i] * mat_B[i][col_B];
+            }
+
+            res_mat[row_A][col_B] = num;
+            num = T(0);
+
+        }  
+    }
+
+    return;
+}
+
+
+
+
 
 
 #endif
