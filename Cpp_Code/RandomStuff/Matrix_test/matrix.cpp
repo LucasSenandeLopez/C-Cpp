@@ -49,6 +49,11 @@ int main()
 
     print_matrix(res_2);
 
+
+    Matrix<int, 2, 2> mat({{1, 2},{3, 4}});
+
+    mat.print();
+
     return 0;
 }
 

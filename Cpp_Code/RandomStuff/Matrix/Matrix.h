@@ -2,8 +2,10 @@
 #define ODR_check
 
 #include <iostream>
+#include <cstring>
 
 using std::cout;
+
 
 template <typename T, long unsigned int ROWS,long unsigned int COLS> void swap_rows(T (&matrix)[ROWS][COLS],\
 long unsigned int former_row, long unsigned int new_row);
@@ -135,8 +137,33 @@ template <typename T, long unsigned int ROWS_A, long unsigned int ROWS_B,\
 }
 
 
+template <typename T, long unsigned int ROWS, long unsigned int COLS> class Matrix
+{
+private:
+    T matrix[ROWS][COLS];
+public:
+    
+    Matrix(const T(& mat)[ROWS][COLS])
+    {
+        for(long unsigned int row = 0; row < ROWS; ++row)
+        {
+            for(long unsigned int col = 0; col < COLS; ++col)
+            {
+                matrix[row][col] = mat[row][col];
+            }
+        }
+    }
+    void print() const;
+
+};
 
 
+template <typename T, long unsigned int ROWS, long unsigned int COLS> void Matrix<T, ROWS, COLS>::print() const
+{
+    print_matrix(Matrix::matrix);
+};
+
+ 
 
 
 #endif
