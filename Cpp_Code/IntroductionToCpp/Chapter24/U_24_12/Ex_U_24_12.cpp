@@ -211,15 +211,11 @@ while(1)
             exit(EXIT_FAILURE);
         }
 
-
         while(fin)
         {
             std::getline(fin, tmp);
             cout << tmp << "\n";
         }
-
-
-
 
         return 0;
     }
