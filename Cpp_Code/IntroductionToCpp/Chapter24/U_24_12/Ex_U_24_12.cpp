@@ -31,6 +31,9 @@ int main()
     ifstream fin;
     ofstream fout;
 
+while(1)
+{
+
     do
     {
         cout << "Choose one:\n1: Encrypt a file.\n2: Decrypt a file.\n3: Terminate." << std::endl;
@@ -39,6 +42,7 @@ int main()
     } while (option < 1 || option > 3);
     
     cout << "\n\n";
+
     switch (option)
     {
     case 1:
@@ -114,6 +118,10 @@ int main()
 
         cout << "The file \"" << tmp_name << "\" with length " << length << " characters "<<\
             "has been encrypted" << std::endl;
+
+        delete[] text;
+        length = 0;
+        counter = 0;
         break;
     
     case 2:
@@ -187,12 +195,34 @@ int main()
 
         cout << "The file \"" << tmp_name << "\" with length " << length << " characters "<<\
             "has been decrypted" << std::endl;
-        break;
+
+        delete[] text;
+        length = 0;
+        counter = 0;
         break;
 
     case 3:
-        cout << "Ending program\n";
+        cout << "Ending program\nResulting text: \n";
+
+        fin.open(filename.c_str(), ios_base::in);
+        if (fin.is_open() == false)
+        {
+            std::cerr << "An error has occurred while opening the file\n";
+            exit(EXIT_FAILURE);
+        }
+
+
+        while(fin)
+        {
+            std::getline(fin, tmp);
+            cout << tmp << "\n";
+        }
+
+
+
+
+        return 0;
     }
-    return 0;
+}
 }
 
