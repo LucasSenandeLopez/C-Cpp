@@ -5,7 +5,7 @@
 
 using std::cout;
 using std::cin;
-
+using Matrix_nmp::Matrix;
 
 int main()
 {
@@ -55,6 +55,13 @@ int main()
     Matrix<int, 2, 2> mat({{1, 2},{3, 4}});
 
     mat.print();
+
+    mat.swap_rows(0,1);
+
+    mat.print();
+    
+    (Matrix<int, 2, 2>({{1, 0},{0, 1}}) + Matrix<int, 2, 2>({{1, 1},{1, 1}})).print();
+
 
     return 0;
 }
