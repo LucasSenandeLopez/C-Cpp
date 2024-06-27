@@ -17,10 +17,10 @@ struct Position
 {
     int ID;    
     string ticker;
-    float avg_purchase_price;
-    float dividends_paid;
-    int quantity;
-    float fees;
+    double avg_purchase_price;
+    double dividends_paid;
+    long unsigned int quantity;
+    double fees;
     double price_minus_div_fees;
 };
 
@@ -108,7 +108,12 @@ void FileAction::menu()
     case 1:
         review_position();
         break;
-
+    case 2:
+        general_review();
+        break;
+    case 3:
+        edit_position();
+        break;
     case 4:
         add_position();
         break;
@@ -156,9 +161,9 @@ void FileAction::general_review()
     {
         cout << "Ticker: " << position_data[i].ticker << "\n";
         cout << "Average purchase Price: " << std::fixed << std::setprecision(2) << position_data[i].avg_purchase_price << "\n";
-        cout << "Net price after dividends and fees: " << std::fixed << std::setprecision(2) << position_data[i].price_minus_div_fees << "\n";
+        cout << "Net price after dividends and fees: " << std::fixed << std::setprecision(2) << position_data[i].price_minus_div_fees << "\n\n";
 
-        result += position_data[i].quantity * position_data[i].price_minus_div_fees;
+        result += (double)position_data[i].quantity * position_data[i].price_minus_div_fees;
     }
 
     cout << "The profit barrier for this portfolio is: " << result << "€\n";
@@ -168,7 +173,7 @@ void FileAction::add_position()
 {
 
     string ticker;
-    int quantity;
+    long unsigned int quantity;
     double fees;
     double divs;
     double price;
@@ -228,6 +233,81 @@ void FileAction::add_position()
     cout << "Data sent to file!\n";
 }
 
+void FileAction::edit_position()
+{
+    long unsigned int position_id;
+    long unsigned int quantity_num;
+    long unsigned int prev_quantity;
+    double prev_price;
+    double edit_num;
+    double div_num;
+
+    cout << "Select an ID to edit: \n\n";
+    do
+    {
+        for (long unsigned int i = 0; i < position_data.size(); ++i)
+        {
+            cout << position_data[i].ID << ": " << position_data[i].ticker <<  "\n";
+        }
+        cin >> position_id;
+    } while (position_id < 1 || position_id > position_data.size());
+    
+    --position_id;
+
+    prev_quantity = position_data[position_id].quantity;
+
+    cout << "Add the quantity added (negative for substraction)\n";
+    cin >> quantity_num;
+    position_data[position_id].quantity += quantity_num;
+
+    prev_price = position_data[position_id].avg_purchase_price;
+
+
+    cout << "Enter the purchase price to the new units \
+        (If you sold or set quantity to zero, it does nothing)\n";
+    cin >> edit_num;
+
+    if (quantity_num > 0)
+    {
+        position_data[position_id].avg_purchase_price = ((double)prev_quantity * position_data[position_id].avg_purchase_price\
+            + (double)quantity_num*edit_num) / double(quantity_num + prev_quantity);
+
+    }
+
+    cout << "\nEnter the new dividend per share\n";
+    cin >> div_num;
+
+    position_data[position_id].dividends_paid += div_num;
+
+    cout << "\nEnter the extra fees ";
+    cin >> edit_num;
+    position_data[position_id].fees += edit_num;
+
+    //We do not add all the dividends because they affect only the pre-bought shares
+    position_data[position_id].price_minus_div_fees += edit_num / (double)position_data[position_id].quantity;
+    position_data[position_id].price_minus_div_fees -= div_num;
+    position_data[position_id].price_minus_div_fees -= (prev_price - position_data[position_id].avg_purchase_price);
+
+    for_output.open(filepath, ios_base::out | ios_base::trunc);
+
+    if (for_output.is_open() == false)
+    {
+        std::cerr << "The file couldn't be opened" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    for(long unsigned int i = 0; i < position_data.size(); ++i)
+    {
+        for_output << position_data[i].ID << "\t";
+        for_output << position_data[i].ticker << "\t";
+        for_output << position_data[i].avg_purchase_price << "\t";
+        for_output << position_data[i].dividends_paid << "\t";
+        for_output << position_data[i].quantity << "\t";
+        for_output << position_data[i].fees << "\t";
+        for_output << position_data[i].price_minus_div_fees << "\n";
+    }
+    for_output.close();
+}
 
 int main()
 {   
