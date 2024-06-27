@@ -37,6 +37,7 @@ private:
     void general_review(); 
     void edit_position();
     void add_position();
+    void delete_position();
     
 public:
     FileAction(const char* path);
@@ -90,37 +91,44 @@ FileAction::~FileAction()
 void FileAction::menu()
 {
     long unsigned int option;
-
-    do
+    bool flag = true;
+    while(flag)
     {
-        cout << "\nPlease, select an option of the following: \n\n";
-        cout << "1: Review a specific position\n";
-        cout << "2: Get a general overview\n";
-        cout << "3: Edit a specific position\n";
-        cout << "4: Add a position\n";
-        cout << "5: Terminate the program\n";
+        do
+        {
+            cout << "\nPlease, select an option of the following: \n\n";
+            cout << "1: Review a specific position\n";
+            cout << "2: Get a general overview\n";
+            cout << "3: Edit a specific position\n";
+            cout << "4: Add a position\n";
+            cout << "5: Delete a position\n";
+            cout << "6: Terminate the program\n";
 
-        cin >> option;
-    } while (option < 1 || option > 5);
-        
-    switch (option)
-    {
-    case 1:
-        review_position();
-        break;
-    case 2:
-        general_review();
-        break;
-    case 3:
-        edit_position();
-        break;
-    case 4:
-        add_position();
-        break;
-    case 5:
-        break;
+            cin >> option;
+        } while (option < 1 || option > 6);
+            
+        switch (option)
+        {
+        case 1:
+            review_position();
+            break;
+        case 2:
+            general_review();
+            break;
+        case 3:
+            edit_position();
+            break;
+        case 4:
+            add_position();
+            break;
+        case 5:
+            delete_position();
+            break;
+        case 6:
+            flag = false;
+            break;
+        }
     }
-
 }
 
 void FileAction::review_position()
@@ -307,6 +315,47 @@ void FileAction::edit_position()
         for_output << position_data[i].price_minus_div_fees << "\n";
     }
     for_output.close();
+}
+
+void FileAction::delete_position()
+{
+    long unsigned int position_id;
+    cout << "Select an ID to delete: \n\n";
+    do
+    {
+        for (long unsigned int i = 0; i < position_data.size(); ++i)
+        {
+            cout << position_data[i].ID << ": " << position_data[i].ticker <<  "\n";
+        }
+        cin >> position_id;
+    } while (position_id < 1 || position_id > position_data.size());
+
+    --position_id;
+    position_data.erase(position_data.begin() + (long int)position_id);
+
+
+    
+    for_output.open(filepath, ios_base::out | ios_base::trunc);
+
+    if (for_output.is_open() == false)
+    {
+        std::cerr << "The file couldn't be opened" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    for(long unsigned int i = 0; i < position_data.size(); ++i)
+    {
+        for_output << i + 1 << "\t";
+        for_output << position_data[i].ticker << "\t";
+        for_output << position_data[i].avg_purchase_price << "\t";
+        for_output << position_data[i].dividends_paid << "\t";
+        for_output << position_data[i].quantity << "\t";
+        for_output << position_data[i].fees << "\t";
+        for_output << position_data[i].price_minus_div_fees << "\n";
+    }
+    for_output.close();
+
+
 }
 
 int main()
