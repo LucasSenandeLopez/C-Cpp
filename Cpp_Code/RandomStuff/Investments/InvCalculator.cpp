@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <iomanip>
 
 //using namespace std
 using std::cout;
@@ -35,7 +36,7 @@ private:
     void review_position();
     void general_review(); 
     void edit_position();
-    void add_position(){};
+    void add_position();
     
 public:
     FileAction(const char* path);
@@ -67,6 +68,8 @@ FileAction::FileAction(const char* path) : filepath(path)
 
         position_data.push_back(pos);
     }
+
+    position_data.pop_back();
 
     cout << "Current positions: \n";
 
@@ -136,12 +139,93 @@ void FileAction::review_position()
 
     cout << "ID: " << position_data[pos_id].ID << "\n";
     cout << "Ticker: " << position_data[pos_id].ticker << "\n";
-    cout << "Average Purchase Price: " << position_data[pos_id].avg_purchase_price << "\n";
-    cout << "Dividends Paid: " << position_data[pos_id].dividends_paid << "\n";
+    cout << "Average Purchase Price: " << std::fixed << std::setprecision(2) << position_data[pos_id].avg_purchase_price << "\n";
+    cout << "Dividends Paid: " << std::fixed << std::setprecision(2) << position_data[pos_id].dividends_paid << "\n";
     cout << "Quantity: " << position_data[pos_id].quantity << "\n";
-    cout << "Fees: " << position_data[pos_id].fees << "\n";
-    cout << "Net price after dividends and fees: " << position_data[pos_id].price_minus_div_fees << "\n";
+    cout << "Fees: " << std::fixed << std::setprecision(2) << position_data[pos_id].fees << "\n";
+    cout << "Net price after dividends and fees: " << std::fixed << std::setprecision(2) << position_data[pos_id].price_minus_div_fees << "\n";
 
+}
+
+void FileAction::general_review()
+{
+    double result;
+    result = 0.0;
+
+    for (long unsigned int i = 0; i < position_data.size(); ++i)
+    {
+        cout << "Ticker: " << position_data[i].ticker << "\n";
+        cout << "Average purchase Price: " << std::fixed << std::setprecision(2) << position_data[i].avg_purchase_price << "\n";
+        cout << "Net price after dividends and fees: " << std::fixed << std::setprecision(2) << position_data[i].price_minus_div_fees << "\n";
+
+        result += position_data[i].quantity * position_data[i].price_minus_div_fees;
+    }
+
+    cout << "The profit barrier for this portfolio is: " << result << "€\n";
+}
+
+void FileAction::add_position()
+{
+
+    string ticker;
+    int quantity;
+    double fees;
+    double divs;
+    double price;
+    double net_price;
+
+    for_output.open(filepath, ios_base::out | ios_base::app);
+    if (for_output.is_open() == false)
+    {
+        std::cerr << "An error has occurred while opening the file" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    cout << "Enter the ticker: \n";
+    cin >> ticker;
+
+    cout << "Enter the average purchase price: \n";
+    cin >> price;
+
+    net_price = price;
+
+    cout << "Enter the dividends paid per share: \n";
+    cin >> divs;
+    
+    net_price -= divs;
+
+    cout << "Enter the total quantity: \n";
+    cin >> quantity;
+    
+    cout << "Enter the total fees: \n";
+    cin >> fees;
+    
+
+    net_price += fees / (double)quantity;
+
+    for_output << position_data.size() + 1;
+    for_output << "\t";
+
+    for_output << ticker;
+    for_output << "\t";
+
+    for_output << price;
+    for_output << "\t";
+
+    for_output << divs;
+    for_output << "\t";
+
+    for_output << quantity;
+    for_output << "\t";
+
+    for_output << fees;
+    for_output << "\t";
+
+    for_output << net_price;
+    for_output << "\n";
+
+    for_output.close();
+    cout << "Data sent to file!\n";
 }
 
 
