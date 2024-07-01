@@ -264,15 +264,16 @@ void FileAction::edit_position()
 
     prev_quantity = position_data[position_id].quantity;
 
+    cout << "The position size is currently " << position_data[position_id].quantity << " shares\n";
     cout << "Add the quantity added (negative for substraction)\n";
     cin >> quantity_num;
     position_data[position_id].quantity += quantity_num;
 
     prev_price = position_data[position_id].avg_purchase_price;
 
+    cout << "Current average purchase price: " << position_data[position_id].avg_purchase_price << "\n";
+    cout << "Enter the purchase price to the new units (If you sold or set quantity to zero, it does nothing)\n";
 
-    cout << "Enter the purchase price to the new units \
-        (If you sold or set quantity to zero, it does nothing)\n";
     cin >> edit_num;
 
     if (quantity_num > 0)
@@ -282,11 +283,13 @@ void FileAction::edit_position()
 
     }
 
+    cout << "Total dividends paid per share: " << position_data[position_id].dividends_paid << "\n";
     cout << "\nEnter the new dividend per share\n";
     cin >> div_num;
 
     position_data[position_id].dividends_paid += div_num;
 
+    cout << "Current total fees for this ticker: " << position_data[position_id].fees << "\n";
     cout << "\nEnter the extra fees ";
     cin >> edit_num;
     position_data[position_id].fees += edit_num;
