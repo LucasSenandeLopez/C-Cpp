@@ -25,7 +25,7 @@ public:
     string longestPalindrome(string s) {
         
         long unsigned int len = s.length();
-        bool substr;
+        bool is_pal;
         long unsigned int max = len;
         long unsigned int temp_max_len = 0;
         long unsigned int min_ptr = 0;
@@ -37,9 +37,9 @@ public:
             do
             {
                 --len;
-                substr = is_palindrome(s, min, max);
+                is_pal = is_palindrome(s, min, max);
                 --max;
-            } while (!substr && len);
+            } while (!is_pal && len);
 
             len = str_len - min;
             
